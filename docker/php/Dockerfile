@@ -1,4 +1,4 @@
-FROM php:7.4-fpm-alpine
+FROM php:8.0-fpm-alpine
 
 RUN apk update && apk add -u \
     composer \
@@ -10,7 +10,7 @@ RUN apk update && apk add -u \
 
 # install php extentions
 RUN apk add --no-cache $PHPIZE_DEPS \
-    && pecl install xdebug-2.9.8 \
+    && pecl install xdebug-3.0.3 \
     && docker-php-ext-install \
         bcmath \
         pdo_mysql \
