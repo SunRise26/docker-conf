@@ -18,6 +18,7 @@ RUN apk add --no-cache $PHPIZE_DEPS \
         opcache \
         gd \
         zip \
+        exif \
     && docker-php-ext-enable xdebug
 
 RUN apk add shadow && usermod -u 1000 www-data && groupmod -g 1000 www-data
@@ -30,6 +31,10 @@ WORKDIR /var/www/amigo
 
 CMD ["php-fpm"]
 
-RUN echo "xdebug.remote_port=9000" >> /usr/local/etc/php/php.ini \
+RUN echo "xdebug.client_port = 9000" >> /usr/local/etc/php/php.ini \
+    && echo "xdebug.client_host = \"172.17.0.1\""  >> /usr/local/etc/php/php.ini \
+    && echo "xdebug.mode = debug"  >> /usr/local/etc/php/php.ini \
+    && echo "xdebug.start_with_request = yes"  >> /usr/local/etc/php/php.ini \
+    && echo "xdebug.idekey = VSCODE"  >> /usr/local/etc/php/php.ini \
     && echo "post_max_size = 100M"  >> /usr/local/etc/php/php.ini \
     && echo "upload_max_filesize = 100M"  >> /usr/local/etc/php/php.ini

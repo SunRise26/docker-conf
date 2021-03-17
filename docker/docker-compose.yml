@@ -33,8 +33,6 @@ services:
   php:
     build: ./php
     restart: always
-    environment:
-      XDEBUG_CONFIG: "remote_host=172.17.0.1 remote_enable=1 remote_autostart=off remote_port=9000"
     links:
       - mysql
     volumes:
