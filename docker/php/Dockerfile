@@ -6,7 +6,14 @@ RUN apk update && apk add -u \
     zlib-dev \
     libzip-dev \
     zip \
-    libpng-dev
+    freetype-dev \
+    libpng-dev \
+    jpeg-dev \
+    libjpeg-turbo-dev
+
+RUN docker-php-ext-configure gd \
+    --with-freetype=/usr/include/ \
+    --with-jpeg=/usr/include/
 
 # install php extentions
 RUN apk add --no-cache $PHPIZE_DEPS \
